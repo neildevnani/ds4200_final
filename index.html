@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Group Project – DATA VIS</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- D3 (for at least 1 viz) -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Project Title</h1>
+    <p class="subtitle">Group Members: Neil Devnani, KC Vedula, and Ethan Kang</p>
+  </header>
+
+  <section id="intro">
+    <h2>Introduction</h2>
+    <p>
+      Briefly describe your topic, questions, and what you’re trying to show
+      with the visualizations.
+    </p>
+  </section>
+
+  <section id="data">
+    <h2>Data Description</h2>
+    <p>
+      Describe the dataset (source, size, time period, main fields).
+      Mention any cleaning/processing you did.
+    </p>
+  </section>
+
+  <section id="visualizations">
+    <h2>Data Visualizations</h2>
+
+    <!-- Viz 1 (Altair example: embed exported HTML in iframe) -->
+    <article class="viz">
+  <h3>Visualization – Star Counts by Spectral Type (Altair)</h3>
+  <iframe
+    src="altair_chart/star_spectral_distribution.html"
+    title="Star Spectral Distribution"
+  ></iframe>
+  <p class="takeaway">
+   This bar chart shows the distribution of stars across different spectral types, revealing 
+   that most stars in the dataset belong to the cooler F, G, and K classes, while very hot O 
+   and B type stars are comparatively rare. This pattern reflects the natural abundance of 
+   stellar types in the observable universe, where massive, hot stars are short-lived and 
+   therefore less common. The bar chart design is effective because it allows for direct comparison 
+   between discrete spectral categories, making differences in frequency immediately clear. 
+   The use of color reinforces the categorical nature of the data, and the interactive legend 
+   allows users to isolate and highlight specific spectral types, improving focus and interpretability 
+   without cluttering the visualization.
+  </p>
+</article>
+
+
+    <!-- Viz 2 (D3 placeholder) -->
+    <article class="viz">
+      <h3>Visualization 2 – D3</h3>
+      <div id="d3-viz-1"></div>
+      <p class="takeaway">
+        This scatter plot shows the relationship between a star’s color index 
+        (B-V), which serves as a proxy for temperature, and its apparent brightness 
+        (V magnitude). The visualization reveals that cooler, redder stars (higher B-V values) 
+        tend to appear dimmer, while hotter, bluer stars (lower B-V values) are generally brighter, 
+        reflecting a fundamental pattern in stellar astronomy. The scatter plot design is effective 
+        because it clearly displays this continuous relationship between two quantitative variables, 
+        while the use of transparency helps reduce overplotting in dense regions. Interactive tooltips 
+        enhance the design by allowing users to explore individual stars in more detail without cluttering 
+        the chart.
+      </p>
+    </article>
+
+    <!-- Viz 3–5: more charts (Altair screenshots, Vega-Lite, D3, etc.) -->
+    <article class="viz">
+      <h3>Visualization 3</h3>
+      <div id="viz-3"></div>
+      <p class="takeaway">…</p>
+    </article>
+
+    <article class="viz">
+      <h3>Visualization 4</h3>
+      <div id="viz-4"></div>
+      <p class="takeaway">…</p>
+    </article>
+
+    <article class="viz">
+      <h3>Visualization 5</h3>
+      <div id="viz-5"></div>
+      <p class="takeaway">…</p>
+    </article>
+  </section>
+
+  <section id="interaction">
+    <h2>Interaction Design</h2>
+    <p>
+      Describe at least three different interaction types you used
+      (e.g., tooltips, brushing, filtering, zooming, dropdowns) and
+      how they help people learn more compared to static plots.
+    </p>
+  </section>
+
+  <section id="summary">
+    <h2>Summary and Future Work</h2>
+    <p>
+      Summarize your findings: main patterns, surprises, and what could be
+      explored in future work (more data, different charts, etc.).
+    </p>
+  </section>
+
+  <section id="references">
+    <h2>References</h2>
+    <ul>
+      <li><a href="URL_1" target="_blank">Reference 1</a></li>
+      <li><a href="URL_2" target="_blank">Reference 2</a></li>
+    </ul>
+  </section>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
