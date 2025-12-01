@@ -2,60 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Group Project – DATA VIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group Project – Milky Way Mapping: Bright Star Catalog Exploration</title>
   <link rel="stylesheet" href="style.css" />
   <!-- D3 (for at least 1 viz) -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
-<body>
-  <header>
-    <h1>Project Title</h1>
-    <p class="subtitle">Group Members: Neil Devnani, KC Vedula, and Ethan Kang</p>
-  </header>
 
+<body>
+  <div class="container">
+    <header>
+      <h1>✨ Bright Star Catalog Exploration ✨</h1>
+      <p class="subtitle">Exploring Stellar Distributions & Characteristics</p>
+      <p class="subtitle" style="margin-top: 0.5rem; font-size: 0.95rem;">
+        Group Members: Neil Devnani • KC Vedula • Ethan Kang
+      </p>
+    </header>
+
+  <!-- Navigation -->
+   <nav>
+      <ul>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#data">Data</a></li>
+        <li><a href="#visualizations">Visualizations</a></li>
+        <li><a href="#interaction">Interactions</a></li>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+   </nav>
+
+  <!-- Intro Section -->
   <section id="intro">
     <h2>Introduction</h2>
     <p>
-      Briefly describe your topic, questions, and what you’re trying to show
-      with the visualizations.
+      Our project focuses on creating insightful visualizations based on the
+      distribution and characteristics of stars in the Milky Way. By mapping stars 
+      according to their brightness, temperature, and spatial position, we uncover 
+      how stellar populations vary across the sky and better understand the structure 
+      of our galactic environment.
+    </p>
+    <p>
+      Modern astronomical data has allowed us to grow our understanding of space and 
+      the night sky by a tremendous amount. Research regarding the night sky was very 
+      limited for a huge portion of human existence until recently. The vast amount of 
+      complex astronomical data gives us flexibility with visualizations and insights, 
+      revealing patterns that were previously hidden to humanity for millennia.
     </p>
   </section>
 
+  <!-- Data Description Section -->
   <section id="data">
     <h2>Data Description</h2>
     <p>
-      Describe the dataset (source, size, time period, main fields).
-      Mention any cleaning/processing you did.
-    </p>
+      <strong>Source:</strong> The dataset is derived from the HEASARC Bright Star Catalog 
+      (Yale Bright Star Catalogue, 5th Edition), accessed through NASA's High Energy 
+      Astrophysics Science Archive Research Center at 
+      <a href="https://data.nasa.gov/dataset/bright-star-catalog" target="_blank" style="color: #63b3ed;">
+        data.nasa.gov
+      </a>.
+      </p>
+      <p>
+        <strong>Size & Scope:</strong> After cleaning and preprocessing, our dataset contains 
+        3,100 bright stars with 64 features. The original catalog includes over 9,000 stars, 
+        but we filtered to stars with valid parallax measurements (allowing distance calculations) 
+        and complete positional data.
+      </p>
+      <p>
+        <strong>Data Processing:</strong> We performed extensive cleaning including converting 
+        sexagesimal coordinates to decimal degrees, filtering stars with parallax > 0, computing 
+        3D Cartesian coordinates, creating brightness categories, and calculating distances in 
+        parsecs and light-years.
+      </p>
   </section>
 
+  <!-- Visualization Section -->
   <section id="visualizations">
     <h2>Data Visualizations</h2>
 
-    <!-- Viz 1 (Altair example: embed exported HTML in iframe) -->
+    <!-- Visualization 1: pectral Distribution (Altair) -->
     <article class="viz">
-  <h3>Visualization – Star Counts by Spectral Type (Altair)</h3>
+  <h3>Visualization 1 – Star Distribution by Spectral Type (Altair)</h3>
   <iframe
     src="altair_chart/star_spectral_distribution.html"
     title="Star Spectral Distribution"
+    style="min-height: 450px;"
   ></iframe>
   <p class="takeaway">
-   This bar chart shows the distribution of stars across different spectral types, revealing 
-   that most stars in the dataset belong to the cooler F, G, and K classes, while very hot O 
-   and B type stars are comparatively rare. This pattern reflects the natural abundance of 
-   stellar types in the observable universe, where massive, hot stars are short-lived and 
-   therefore less common. The bar chart design is effective because it allows for direct comparison 
-   between discrete spectral categories, making differences in frequency immediately clear. 
-   The use of color reinforces the categorical nature of the data, and the interactive legend 
-   allows users to isolate and highlight specific spectral types, improving focus and interpretability 
-   without cluttering the visualization.
+    This bar chart shows the distribution of stars across different spectral types, revealing 
+    that most stars in the dataset belong to the cooler F, G, and K classes, while very hot O 
+    and B type stars are comparatively rare. This pattern reflects the natural abundance of 
+    stellar types in the observable universe, where massive, hot stars are short-lived and 
+    therefore less common. The bar chart design is effective because it allows for direct comparison 
+    between discrete spectral categories, making differences in frequency immediately clear. 
+    The use of color reinforces the categorical nature of the data, and the interactive legend 
+    allows users to isolate and highlight specific spectral types, improving focus and interpretability 
+    without cluttering the visualization.
   </p>
 </article>
 
 
-    <!-- Viz 2 (D3 placeholder) -->
+    <!-- Visualization 2: Color-Magnitude Scatter (D3) -->
     <article class="viz">
-      <h3>Visualization 2 – D3</h3>
+      <h3>Visualization 2 – Color-Magnitude Relationship</h3>
       <div id="d3-viz-1"></div>
       <p class="takeaway">
         This scatter plot shows the relationship between a star’s color index 
@@ -70,52 +118,125 @@
       </p>
     </article>
 
-    <!-- Viz 3–5: more charts (Altair screenshots, Vega-Lite, D3, etc.) -->
+    <!-- Visualization 3 Hertzsprung-Russell Diagram (D3) -->
     <article class="viz">
-      <h3>Visualization 3</h3>
-      <div id="viz-3"></div>
-      <p class="takeaway">…</p>
-    </article>
-
-    <article class="viz">
-      <h3>Visualization 4</h3>
-      <div id="viz-4"></div>
-      <p class="takeaway">…</p>
-    </article>
-
-    <article class="viz">
-      <h3>Visualization 5</h3>
+      <h3>Visualization 3 - Hertzsprung-Russell Diagram</h3>
       <div id="viz-5"></div>
-      <p class="takeaway">…</p>
+      <p class="takeaway">
+        The Hertzsprung-Russell diagram is one of astronomy's most fundamental visualizations, 
+        plotting stellar temperature (represented by B-V color index) against brightness (visual 
+        magnitude) to reveal the underlying physics of stellar structure and evolution. This 
+        implementation clearly shows the main sequence—the prominent diagonal band where approximately 
+        90% of stars reside, representing stars actively fusing hydrogen into helium in their cores, 
+        like our Sun. The visualization demonstrates the crucial temperature-luminosity relationship: 
+        hotter stars (lower B-V values, appearing on the left) tend to be intrinsically more luminous, 
+        while cooler stars (higher B-V values, on the right) are generally dimmer. This pattern 
+        directly reflects the mass-luminosity relationship in stellar physics, where more massive 
+        stars burn hotter and brighter. Following astronomical convention, the axes are oriented with 
+        hot stars on the left and bright stars at the top, matching over a century of HR diagram 
+        tradition. The color encoding uses physically realistic stellar hues—blue for hot O/B stars, 
+        white for A stars, yellow for G-type Sun-like stars, and orange-red for cool K/M stars—creating 
+        an intuitive visual mapping that reinforces the temperature information. Interactive legend 
+        filtering enables focused analysis of specific stellar populations, while the hover interaction 
+        implements sophisticated focus+context design by enlarging the selected star while dimming all 
+        others to 20% opacity, allowing users to identify individual objects in even the densest regions.
+      </p>
+    </article>
+
+    <!-- Visualization 4: Interactive Celestial Sky Map (D3) -->
+    <article class="viz">
+      <h3>Visualization 4 - Interactive Celestial Sky Map</h3>
+      <div id="viz-4"></div>
+      <p class="takeaway">
+        This celestial sky map provides a geographic representation of stellar positions across 
+        the night sky, using the astronomical coordinate system of Right Ascension (RA) and 
+        Declination (Dec)—the celestial equivalents of longitude and latitude. The x-axis spans 
+        0° to 360° of Right Ascension, while the y-axis covers -90° to +90° of Declination, from 
+        the south celestial pole to the north celestial pole. The dashed line at Declination 0° marks 
+        the celestial equator, dividing the northern and southern celestial hemispheres. The visualization 
+        reveals non-uniform distribution patterns across the sky: certain regions show notably higher 
+        stellar density while others are more sparse, potentially reflecting the structure of the Milky 
+        Way galaxy itself. This map employs multi-channel visual encoding to convey three distinct stellar 
+        attributes simultaneously: position (x,y coordinates) maps each star's actual location in the sky, 
+        point size encodes apparent brightness with larger circles representing brighter stars, and color 
+        represents stellar temperature derived from the B-V color index, with a gradient from blue (hot 
+        stars exceeding 10,000K) through white (intermediate temperatures) to orange-red (cool stars below 
+        4,000K). Interactive hover effects dramatically enhance exploration: when a user hovers over any 
+        star, it enlarges to twice its normal size, brightens to full opacity, and gains a prominent golden 
+        stroke, while a rich tooltip displays the star's name, exact celestial coordinates, magnitude and 
+        brightness classification, spectral type, B-V color index, and distance in light-years. This 
+        celestial map serves both as a scientific tool for analyzing stellar distributions and as an 
+        engaging educational visualization connecting abstract data to the tangible experience of the night sky.
+    </article>
+
+    <!-- Visualization 5:  -->
+    <article class="viz">
+      <h3>Visualization 5 - ...</h3>
+      <div id="viz-5"></div>
+      <p class="takeaway">...</p>
     </article>
   </section>
 
+  <!-- Interaction Section -->
   <section id="interaction">
     <h2>Interaction Design</h2>
     <p>
-      Describe at least three different interaction types you used
-      (e.g., tooltips, brushing, filtering, zooming, dropdowns) and
-      how they help people learn more compared to static plots.
+      <strong>1. Interactive Tooltips:</strong> Hovering reveals detailed star information 
+      including names, measurements, and classifications. This keeps visualizations uncluttered 
+      while enabling deep exploration.
+    </p>
+    <p>
+      <strong>2. Highlight and Focus:</strong> Hovering enlarges and brightens selected stars 
+      while dimming others, creating clear focus in dense regions.
+    </p>
+    <p>
+      <strong>3. Interactive Filtering:</strong> Clicking legend items filters displays to 
+      specific categories, enabling comparative analysis of stellar populations.
     </p>
   </section>
 
+  <!-- Summary Section-->
   <section id="summary">
     <h2>Summary and Future Work</h2>
     <p>
-      Summarize your findings: main patterns, surprises, and what could be
-      explored in future work (more data, different charts, etc.).
+      Our visualizations reveal that cooler spectral types dominate, the HR diagram confirms 
+      expected temperature-luminosity relationships, and many bright stars are extremely 
+      distant yet intrinsically luminous. Future work could include 3D spatial plots, temporal 
+      animations of stellar motion, integration with Gaia DR3 for precise distances, and 
+      constellation mapping.
     </p>
   </section>
 
+  <!-- References Section-->
   <section id="references">
     <h2>References</h2>
     <ul>
-      <li><a href="URL_1" target="_blank">Reference 1</a></li>
-      <li><a href="URL_2" target="_blank">Reference 2</a></li>
+      <li>
+        <a href="https://data.nasa.gov/dataset/bright-star-catalog" target="_blank">
+          NASA Open Data Portal - Bright Star Catalog Dataset
+        </a>
+      </li>
+      <li>
+        <a href="https://heasarc.gsfc.nasa.gov/W3Browse/all/bsc5p.html" target="_blank">
+          HHEASARC Browse - Bright Star Catalog (Yale BSC, 5th Edition)
+        </a>
+      </li>
+      <li>
+        <a href="https://www.scientificamerican.com/article/how-seeing-the-milky-way-helped-us-discover-the-whole-universe1/" target="_blank">
+          How Seeing the Milky Way Helped Us Discover the Whole Universe – Scientific American
+        </a>
+      </li>
+      <li>
+        <a href="https://iopscience.iop.org/article/10.3847/1538-3881/aa7567/meta" target="_blank">
+          Sloan Digital Sky Survey IV: Mapping the Milky Way
+        </a>
+      </li>
     </ul>
   </section>
 
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+
   <script src="script.js"></script>
+  <script src="viz3_hr_diagram.js"></script>
+  <script src="viz4_skymap.js"></script>
 </body>
 </html>

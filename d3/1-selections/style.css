@@ -1,0 +1,24 @@
+body {
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.75rem;
+}
+
+thead {
+  background: #111827;
+  color: white;
+}
+
+.highlight {
+  background: #fef3c7;
+}
