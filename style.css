@@ -18,6 +18,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to bottom, var(--deep-space) 0%, #1a1f3a 50%, #0a0e27 100%);
@@ -26,6 +27,7 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Animated starfield background */
@@ -56,9 +58,9 @@ body::before {
 
 /* Container */
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 }
 
 /* Header Styles */
@@ -106,7 +108,7 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* Navigation */
+/* Navigation - if you want to add one later */
 nav {
   background: rgba(26, 31, 58, 0.8);
   backdrop-filter: blur(10px);
@@ -190,7 +192,7 @@ p {
   font-size: 1.05rem;
 }
 
-/* Introduction and Data Sections */
+/* Introduction and Data sections */
 #intro, #data {
   background: rgba(26, 31, 58, 0.6);
   padding: 2rem;
@@ -210,6 +212,8 @@ p {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   backdrop-filter: blur(10px);
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .viz:hover {
@@ -222,22 +226,44 @@ p {
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(246, 224, 94, 0.4);
 }
 
 .viz h3::before {
   content: '★';
   color: var(--stardust-gold);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .viz iframe,
-.viz > div {
+.viz > div:not(.takeaway) {
   width: 100%;
-  min-height: 400px;
+  max-width: 100%;
+  height: 450px;
   border: none;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto;
+  display: block;
+  background: rgba(10, 14, 39, 0.5);
+  overflow: hidden;
+}
+
+/* Prevent iframe scrolling */
+.viz iframe {
+  scrolling: no;
+  pointer-events: auto;
+}
+
+/* Center images */
+.viz img {
+  display: block;
+  margin: 0 auto 1rem auto;
+  max-width: 100%;
+  height: auto;
   background: rgba(10, 14, 39, 0.5);
 }
 
@@ -321,22 +347,6 @@ p {
     align-items: center;
     gap: 1rem;
   }
-}
-
-/* Scroll animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-section {
-  animation: fadeInUp 0.6s ease-out;
 }
 
 /* Loading state for visualizations */

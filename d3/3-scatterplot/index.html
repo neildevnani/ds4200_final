@@ -4,10 +4,30 @@
 <head>
   <meta charset="UTF-8" />
   <title>D3 3 – Scatterplot</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom, #0a0e27 0%, #1a1f3a 100%);
+      font-family: 'Segoe UI', sans-serif;
+      color: #e2e8f0;
+    }
+    h1 {
+      text-align: center;
+      color: #f6e05e;
+      margin-bottom: 10px;
+    }
+    #vis {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 450px;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Example scatterplot: distance vs brightness (toy data)</h1>
+  <h1>Toy Scatterplot of Star Distance vs Brightness (Toy Data)</h1>
   <div id="vis"></div>
 
   <script src="https://d3js.org/d3.v7.min.js"></script>

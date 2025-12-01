@@ -81,30 +81,34 @@
 
     <!-- Visualization 1: pectral Distribution (Altair) -->
     <article class="viz">
-  <h3>Visualization 1 – Star Distribution by Spectral Type (Altair)</h3>
-  <iframe
-    src="altair_chart/star_spectral_distribution.html"
-    title="Star Spectral Distribution"
-    style="min-height: 450px;"
-  ></iframe>
-  <p class="takeaway">
-    This bar chart shows the distribution of stars across different spectral types, revealing 
-    that most stars in the dataset belong to the cooler F, G, and K classes, while very hot O 
-    and B type stars are comparatively rare. This pattern reflects the natural abundance of 
-    stellar types in the observable universe, where massive, hot stars are short-lived and 
-    therefore less common. The bar chart design is effective because it allows for direct comparison 
-    between discrete spectral categories, making differences in frequency immediately clear. 
-    The use of color reinforces the categorical nature of the data, and the interactive legend 
-    allows users to isolate and highlight specific spectral types, improving focus and interpretability 
-    without cluttering the visualization.
-  </p>
-</article>
+      <h3>Visualization 1 – Star Distribution by Spectral Type (Altair)</h3>
+    <iframe
+      src="altair_chart/star_spectral_distribution.html"
+      title="Star Spectral Distribution"
+      style="width: 100%; height: 640px; border: none; border-radius: 8px; "
+    ></iframe>
+    <p class="takeaway">
+      This bar chart shows the distribution of stars across different spectral types, revealing 
+      that most stars in the dataset belong to the cooler F, G, and K classes, while very hot O 
+      and B type stars are comparatively rare. This pattern reflects the natural abundance of 
+      stellar types in the observable universe, where massive, hot stars are short-lived and 
+      therefore less common. The bar chart design is effective because it allows for direct comparison 
+      between discrete spectral categories, making differences in frequency immediately clear. 
+      The use of color reinforces the categorical nature of the data, and the interactive legend 
+      allows users to isolate and highlight specific spectral types, improving focus and interpretability 
+      without cluttering the visualization.
+    </p>
+  </article>
 
 
     <!-- Visualization 2: Color-Magnitude Scatter (D3) -->
     <article class="viz">
       <h3>Visualization 2 – Color-Magnitude Relationship</h3>
-      <div id="d3-viz-1"></div>
+      <iframe
+        src="d3/3-scatterplot/index.html"
+        title="Color-Magnitude Scatter"
+        style="width: 100%; height: 600px; border: none; border-radius: 8px;"
+      ></iframe>
       <p class="takeaway">
         This scatter plot shows the relationship between a star’s color index 
         (B-V), which serves as a proxy for temperature, and its apparent brightness 
@@ -121,7 +125,11 @@
     <!-- Visualization 3 Hertzsprung-Russell Diagram (D3) -->
     <article class="viz">
       <h3>Visualization 3 - Hertzsprung-Russell Diagram</h3>
-      <div id="viz-5"></div>
+      <iframe
+        src="d3/4-hr/index.html"
+        title="HR Diagram"
+        style="width: 100%; height: 600px; border: none; border-radius: 8px;"
+      ></iframe>
       <p class="takeaway">
         The Hertzsprung-Russell diagram is one of astronomy's most fundamental visualizations, 
         plotting stellar temperature (represented by B-V color index) against brightness (visual 
@@ -146,7 +154,11 @@
     <!-- Visualization 4: Interactive Celestial Sky Map (D3) -->
     <article class="viz">
       <h3>Visualization 4 - Interactive Celestial Sky Map</h3>
-      <div id="viz-4"></div>
+      <iframe
+        src="d3/5-skymap/index.html"
+        title="HR Diagram"
+        style="width: 100%; height: 600px; border: none; border-radius: 8px;"
+      ></iframe>
       <p class="takeaway">
         This celestial sky map provides a geographic representation of stellar positions across 
         the night sky, using the astronomical coordinate system of Right Ascension (RA) and 
@@ -236,7 +248,5 @@
 
 
   <script src="script.js"></script>
-  <script src="viz3_hr_diagram.js"></script>
-  <script src="viz4_skymap.js"></script>
 </body>
 </html>
