@@ -122,32 +122,32 @@
       </p>
     </article>
 
-    <!-- Visualization 3 Hertzsprung-Russell Diagram (D3) -->
+    <!-- Visualization 3: Temperature & Brightness Distributions (D3) -->
     <article class="viz">
-      <h3>Visualization 3 - Hertzsprung-Russell Diagram</h3>
+      <h3>Visualization 3 - Temperature & Brightness Distributions</h3>
       <iframe
-        src="d3/4-hr/index.html"
-        title="HR Diagram"
-        style="width: 100%; height: 600px; border: none; border-radius: 8px;"
+        src="d3/4-density/index.html"
+        title="Density Plots"
+        style="width: 100%; height: 700px; border: none; border-radius: 8px;"
       ></iframe>
       <p class="takeaway">
-        The Hertzsprung-Russell diagram is one of astronomy's most fundamental visualizations, 
-        plotting stellar temperature (represented by B-V color index) against brightness (visual 
-        magnitude) to reveal the underlying physics of stellar structure and evolution. This 
-        implementation clearly shows the main sequence—the prominent diagonal band where approximately 
-        90% of stars reside, representing stars actively fusing hydrogen into helium in their cores, 
-        like our Sun. The visualization demonstrates the crucial temperature-luminosity relationship: 
-        hotter stars (lower B-V values, appearing on the left) tend to be intrinsically more luminous, 
-        while cooler stars (higher B-V values, on the right) are generally dimmer. This pattern 
-        directly reflects the mass-luminosity relationship in stellar physics, where more massive 
-        stars burn hotter and brighter. Following astronomical convention, the axes are oriented with 
-        hot stars on the left and bright stars at the top, matching over a century of HR diagram 
-        tradition. The color encoding uses physically realistic stellar hues—blue for hot O/B stars, 
-        white for A stars, yellow for G-type Sun-like stars, and orange-red for cool K/M stars—creating 
-        an intuitive visual mapping that reinforces the temperature information. Interactive legend 
-        filtering enables focused analysis of specific stellar populations, while the hover interaction 
-        implements sophisticated focus+context design by enlarging the selected star while dimming all 
-        others to 20% opacity, allowing users to identify individual objects in even the densest regions.
+        These density plots reveal the distribution patterns of stellar characteristics in our dataset, 
+        providing a complementary perspective to individual data points. The temperature distribution 
+        (top panel) shows that most stars cluster around B-V values of 0.5-1.0, corresponding to 
+        yellow-orange stars similar to our Sun in the G and K spectral classes. The smooth curve 
+        reveals a roughly normal distribution centered near the mean B-V of approximately 0.65, 
+        indicating that intermediate-temperature stars dominate our sample. The brightness distribution 
+        (bottom panel) demonstrates that most visible stars have magnitudes between 2 and 5, with a 
+        peak around magnitude 3-4. The distribution shows fewer very bright stars (magnitude < 1) 
+        and a gradual tail toward dimmer stars (magnitude > 6). This pattern reflects both physical 
+        stellar demographics—intrinsically luminous stars are rarer—and observational selection effects, 
+        as very faint stars are more difficult to catalog comprehensively. Unlike scatter plots that 
+        show relationships between variables, these density plots emphasize frequency and concentration, 
+        making it immediately clear which stellar types are most common. The mean lines (dashed) provide 
+        reference points for typical values, helping contextualize individual stars seen in other 
+        visualizations. Together, these distributions complement the scatter-based visualizations by 
+        answering "how many?" rather than "how related?", revealing the underlying population structure 
+        of bright stars in our galactic neighborhood.
       </p>
     </article>
 

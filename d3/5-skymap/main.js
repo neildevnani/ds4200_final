@@ -1,5 +1,4 @@
-// Sky Map Visualization
-console.log("Sky Map loading...");
+console.log("Enhanced Sky Map loading...");
 
 d3.csv("../../data/bright_star_clean.csv").then(data => {
   console.log("Data loaded:", data.length, "rows");
@@ -14,9 +13,9 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
   data = data.filter(d => !isNaN(d.ra_deg) && !isNaN(d.dec_deg));
   console.log("Valid stars:", data.length);
   
-  const width = 1000;
+  const width = 1100;
   const height = 600;
-  const margin = { top: 20, right: 160, bottom: 50, left: 60 };
+  const margin = { top: 20, right: 260, bottom: 60, left: 70 };
   
   const svg = d3.select("#vis")
     .append("svg")
@@ -50,7 +49,7 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
     .style("color", "#a0aec0")
     .append("text")
     .attr("x", (width - margin.left - margin.right) / 2 + margin.left)
-    .attr("y", 35)
+    .attr("y", 40)
     .attr("fill", "#e2e8f0")
     .attr("text-anchor", "middle")
     .text("Right Ascension (°)");
@@ -62,7 +61,7 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
     .append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -(height - margin.top - margin.bottom) / 2 - margin.top)
-    .attr("y", -40)
+    .attr("y", -45)
     .attr("fill", "#e2e8f0")
     .attr("text-anchor", "middle")
     .text("Declination (°)");
@@ -87,6 +86,37 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
     .attr("stroke-dasharray", "5,5")
     .attr("opacity", 0.5);
   
+  // Calculate trend line (linear regression for Dec vs RA)
+  const validTrendData = data.filter(d => !isNaN(d.ra_deg) && !isNaN(d.dec_deg));
+  const n = validTrendData.length;
+  const sumX = d3.sum(validTrendData, d => d.ra_deg);
+  const sumY = d3.sum(validTrendData, d => d.dec_deg);
+  const sumXY = d3.sum(validTrendData, d => d.ra_deg * d.dec_deg);
+  const sumX2 = d3.sum(validTrendData, d => d.ra_deg * d.ra_deg);
+  
+  const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+  const intercept = (sumY - slope * sumX) / n;
+  
+  const trendLine = d3.line()
+    .x(d => xScale(d))
+    .y(d => yScale(slope * d + intercept));
+  
+  svg.append("path")
+    .datum([0, 360])
+    .attr("d", trendLine)
+    .attr("stroke", "#63b3ed")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "8,4")
+    .attr("fill", "none")
+    .attr("opacity", 0.6);
+  
+  svg.append("text")
+    .attr("x", width - margin.right + 10)
+    .attr("y", yScale(slope * 360 + intercept))
+    .attr("fill", "#63b3ed")
+    .attr("font-size", "10px")
+    .text("Trend");
+  
   // Tooltip
   const tooltip = d3.select("body")
     .append("div")
@@ -101,110 +131,16 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
     .style("opacity", 0)
     .style("z-index", "1000");
   
-  // Legend
-  const legend = svg.append("g")
-    .attr("class", "legend")
-    .attr("transform", `translate(${width - margin.right + 10}, ${margin.top})`);
-  
-  // Legend title
-  legend.append("text")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("fill", "#f6e05e")
-    .attr("font-size", "14px")
-    .attr("font-weight", "bold")
-    .text("Legend");
-  
-  // Size legend (Brightness)
-  legend.append("text")
-    .attr("x", 0)
-    .attr("y", 25)
-    .attr("fill", "#e2e8f0")
-    .attr("font-size", "12px")
-    .attr("font-weight", "bold")
-    .text("Brightness");
-  
-  const brightnessSamples = [
-    { mag: -1, label: "Very Bright (-1)" },
-    { mag: 2, label: "Bright (2)" },
-    { mag: 5, label: "Dim (5)" }
-  ];
-  
-  brightnessSamples.forEach((sample, i) => {
-    const yPos = 40 + i * 25;
-    legend.append("circle")
-      .attr("cx", 5)
-      .attr("cy", yPos)
-      .attr("r", sizeScale(sample.mag))
-      .attr("fill", "#fff")
-      .attr("opacity", 0.8)
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 0.3);
-    
-    legend.append("text")
-      .attr("x", 15)
-      .attr("y", yPos + 4)
-      .attr("fill", "#a0aec0")
-      .attr("font-size", "11px")
-      .text(sample.label);
-  });
-  
-  // Color legend (Temperature)
-  legend.append("text")
-    .attr("x", 0)
-    .attr("y", 130)
-    .attr("fill", "#e2e8f0")
-    .attr("font-size", "12px")
-    .attr("font-weight", "bold")
-    .text("Temperature");
-  
-  const tempSamples = [
-    { bv: -0.3, temp: ">10,000K", label: "Hot (Blue)" },
-    { bv: 0.6, temp: "~6,000K", label: "Medium (White)" },
-    { bv: 1.5, temp: "<4,000K", label: "Cool (Orange)" }
-  ];
-  
-  tempSamples.forEach((sample, i) => {
-    const yPos = 145 + i * 25;
-    legend.append("circle")
-      .attr("cx", 5)
-      .attr("cy", yPos)
-      .attr("r", 5)
-      .attr("fill", colorScale(sample.bv))
-      .attr("opacity", 0.9)
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 0.5);
-    
-    legend.append("text")
-      .attr("x", 15)
-      .attr("y", yPos + 4)
-      .attr("fill", "#a0aec0")
-      .attr("font-size", "11px")
-      .text(sample.label);
-  });
-  
-  // Additional info
-  legend.append("text")
-    .attr("x", 0)
-    .attr("y", 235)
-    .attr("fill", "#4a90e2")
-    .attr("font-size", "10px")
-    .attr("font-style", "italic")
-    .text("Hover over stars");
-  
-  legend.append("text")
-    .attr("x", 0)
-    .attr("y", 250)
-    .attr("fill", "#4a90e2")
-    .attr("font-size", "10px")
-    .attr("font-style", "italic")
-    .text("for details");
+  // Filter state
+  let tempFilter = "all";
+  let brightFilter = "all";
   
   // Stars
-  svg.selectAll("circle")
+  const circles = svg.selectAll("circle.star")
     .data(data)
     .enter()
     .append("circle")
+    .attr("class", "star")
     .attr("cx", d => xScale(d.ra_deg))
     .attr("cy", d => yScale(d.dec_deg))
     .attr("r", d => sizeScale(d.vmag))
@@ -213,12 +149,14 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
     .attr("stroke", "#fff")
     .attr("stroke-width", 0.3)
     .on("mouseover", function(e, d) {
-      d3.select(this).attr("r", sizeScale(d.vmag) * 1.5).attr("opacity", 1);
+      d3.select(this).attr("r", sizeScale(d.vmag) * 1.8).attr("opacity", 1)
+        .attr("stroke", "#f6e05e").attr("stroke-width", 2);
       tooltip.style("opacity", 1).html(`
-        <b>${d.name}</b><br>
+        <b>${d.name || "Unknown"}</b><br>
         RA: ${d.ra_deg.toFixed(1)}°<br>
         Dec: ${d.dec_deg.toFixed(1)}°<br>
-        Mag: ${d.vmag.toFixed(2)}
+        Mag: ${d.vmag.toFixed(2)}<br>
+        B-V: ${d.bv_color ? d.bv_color.toFixed(2) : "N/A"}
       `);
     })
     .on("mousemove", e => {
@@ -226,11 +164,146 @@ d3.csv("../../data/bright_star_clean.csv").then(data => {
              .style("top", (e.pageY - 10) + "px");
     })
     .on("mouseout", function(e, d) {
-      d3.select(this).attr("r", sizeScale(d.vmag)).attr("opacity", 0.8);
+      d3.select(this).attr("r", sizeScale(d.vmag)).attr("opacity", 0.8)
+        .attr("stroke", "#fff").attr("stroke-width", 0.3);
       tooltip.style("opacity", 0);
     });
   
-  console.log("✓ Sky Map complete!");
+  // Legend with filters
+  const legend = svg.append("g")
+    .attr("transform", `translate(${width - margin.right + 15}, ${margin.top})`);
+  
+  legend.append("text")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("fill", "#f6e05e")
+    .attr("font-size", "16px")
+    .attr("font-weight", "bold")
+    .text("Filters");
+  
+  // Temperature filter
+  legend.append("text")
+    .attr("x", 0)
+    .attr("y", 30)
+    .attr("fill", "#e2e8f0")
+    .attr("font-size", "13px")
+    .attr("font-weight", "bold")
+    .text("Temperature:");
+  
+  const tempOptions = [
+    { label: "All", value: "all" },
+    { label: "Hot (B-V < 0.5)", value: "hot" },
+    { label: "Medium (0.5-1.2)", value: "medium" },
+    { label: "Cool (B-V > 1.2)", value: "cool" }
+  ];
+  
+  tempOptions.forEach((opt, i) => {
+    const g = legend.append("g")
+      .attr("transform", `translate(0, ${50 + i * 25})`)
+      .style("cursor", "pointer")
+      .on("click", function() {
+        tempFilter = opt.value;
+        updateFilters();
+        legend.selectAll(".temp-option").attr("opacity", 0.5);
+        d3.select(this).attr("opacity", 1);
+      });
+    
+    g.append("circle")
+      .attr("class", "temp-option")
+      .attr("cx", 8)
+      .attr("cy", 0)
+      .attr("r", 5)
+      .attr("fill", "#4a90e2")
+      .attr("opacity", opt.value === "all" ? 1 : 0.5);
+    
+    g.append("text")
+      .attr("x", 20)
+      .attr("y", 4)
+      .attr("fill", "#a0aec0")
+      .attr("font-size", "11px")
+      .text(opt.label);
+  });
+  
+  // Brightness filter
+  legend.append("text")
+    .attr("x", 0)
+    .attr("y", 180)
+    .attr("fill", "#e2e8f0")
+    .attr("font-size", "13px")
+    .attr("font-weight", "bold")
+    .text("Brightness:");
+  
+  const brightOptions = [
+    { label: "All", value: "all" },
+    { label: "Bright (mag < 2)", value: "bright" },
+    { label: "Medium (2-4)", value: "medium" },
+    { label: "Dim (mag > 4)", value: "dim" }
+  ];
+  
+  brightOptions.forEach((opt, i) => {
+    const g = legend.append("g")
+      .attr("transform", `translate(0, ${200 + i * 25})`)
+      .style("cursor", "pointer")
+      .on("click", function() {
+        brightFilter = opt.value;
+        updateFilters();
+        legend.selectAll(".bright-option").attr("opacity", 0.5);
+        d3.select(this).attr("opacity", 1);
+      });
+    
+    g.append("circle")
+      .attr("class", "bright-option")
+      .attr("cx", 8)
+      .attr("cy", 0)
+      .attr("r", 5)
+      .attr("fill", "#f6e05e")
+      .attr("opacity", opt.value === "all" ? 1 : 0.5);
+    
+    g.append("text")
+      .attr("x", 20)
+      .attr("y", 4)
+      .attr("fill", "#a0aec0")
+      .attr("font-size", "11px")
+      .text(opt.label);
+  });
+  
+  // Filter update function
+  function updateFilters() {
+    circles.attr("opacity", d => {
+      let show = true;
+      
+      // Temperature filter
+      if (tempFilter === "hot" && d.bv_color >= 0.5) show = false;
+      if (tempFilter === "medium" && (d.bv_color < 0.5 || d.bv_color > 1.2)) show = false;
+      if (tempFilter === "cool" && d.bv_color <= 1.2) show = false;
+      
+      // Brightness filter
+      if (brightFilter === "bright" && d.vmag >= 2) show = false;
+      if (brightFilter === "medium" && (d.vmag < 2 || d.vmag > 4)) show = false;
+      if (brightFilter === "dim" && d.vmag <= 4) show = false;
+      
+      return show ? 0.8 : 0.1;
+    });
+  }
+  
+  // Legend info
+  legend.append("text")
+    .attr("x", 0)
+    .attr("y", 320)
+    .attr("fill", "#63b3ed")
+    .attr("font-size", "10px")
+    .attr("font-style", "italic")
+    .text("Click to filter by");
+  
+  legend.append("text")
+    .attr("x", 0)
+    .attr("y", 335)
+    .attr("fill", "#63b3ed")
+    .attr("font-size", "10px")
+    .attr("font-style", "italic")
+    .text("temperature or brightness");
+  
+  console.log("✓ Enhanced Sky Map complete!");
   
 }).catch(err => {
   console.error("Error:", err);

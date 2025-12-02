@@ -1,4 +1,4 @@
-/* Hertzsprung-Russell Diagram Styles */
+/* Temperature & Brightness Distribution Styles */
 
 * {
   margin: 0;
@@ -11,7 +11,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #e2e8f0;
   margin: 0;
-  padding: 20px;
+  padding: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ body {
 
 #vis {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   min-height: 600px;
   display: flex;
   justify-content: center;
@@ -31,4 +31,19 @@ body {
 
 svg {
   display: block;
+}
+
+.density-area {
+  fill-opacity: 0.7;
+}
+
+.axis-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.grid line {
+  stroke: #2d3748;
+  stroke-opacity: 0.3;
+  stroke-dasharray: 2,2;
 }
