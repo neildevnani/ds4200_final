@@ -1,0 +1,52 @@
+/* Parallax vs Apparent Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e2e8f0;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#vis {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+svg {
+  display: block;
+}
+
+.grid line {
+  stroke: #2d3748;
+  stroke-opacity: 0.3;
+  stroke-dasharray: 2,2;
+}
+
+.regression-line {
+  stroke: #63b3ed;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-dasharray: 8,4;
+}
+
+.confidence-band {
+  fill: #63b3ed;
+  opacity: 0.15;
+}

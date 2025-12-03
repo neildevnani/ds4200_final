@@ -181,11 +181,41 @@
         engaging educational visualization connecting abstract data to the tangible experience of the night sky.
     </article>
 
-    <!-- Visualization 5:  -->
+    <!-- Visualization 5: Stellar Density Heatmap -->
     <article class="viz">
-      <h3>Visualization 5 - ...</h3>
-      <div id="viz-5"></div>
-      <p class="takeaway">...</p>
+      <h3>Visualization 5 - Stellar Density Across the Sky</h3>
+      <iframe
+        src="d3/6-distance/index.html"
+        title="Density Heatmap"
+        style="width: 100%; height: 650px; border: none; border-radius: 8px;"
+      ></iframe>
+      <p class="takeaway">
+        This contour density map reveals concentration patterns in stellar distribution across the 
+        celestial sphere using a fundamentally different analytical approach than individual point 
+        plotting. While Visualization 4 displays each star as a separate point with interactive filtering, 
+        this visualization employs density estimation and contour mapping to show WHERE stars concentrate 
+        most heavily across Right Ascension and Declination coordinates. The contour technique aggregates 
+        nearby stars into smooth density regions, similar to topographic elevation maps, where each contour 
+        line represents areas of similar stellar concentration. The color scale from pale yellow (low density) 
+        through orange to deep red (high density) creates an intuitive heat map visualization where "hot" 
+        regions contain more stars. Multiple distinct high-density regions emerge as red zones, particularly 
+        visible around RA 60-90° and RA 270-300°, with additional concentration near RA 180°. These dense 
+        regions likely correspond to our view through the Milky Way's galactic plane and spiral arm structures, 
+        where stellar populations naturally concentrate. Lower-density regions (pale yellow) appear at various 
+        sky positions, potentially indicating areas where we're looking perpendicular to the galactic disk 
+        or through less populated galactic regions. The celestial equator (blue dashed line at 0° declination) 
+        provides spatial reference, and the density patterns show asymmetry across this line—suggesting the 
+        galactic plane is tilted relative to Earth's equatorial coordinate system. Unlike scatter plots that 
+        preserve individual star information (Vis2, Vis4) or frequency histograms showing attribute distributions 
+        (Vis3), this density-based aggregation emphasizes spatial concentration patterns—answering "which sky 
+        regions are most densely populated?" The smooth contours reduce visual noise from thousands of individual 
+        points, making large-scale structural patterns immediately apparent without requiring interaction. This 
+        non-interactive design ensures all viewers immediately perceive the density structure, whereas Vis4's 
+        filtering requires active exploration. The technique complements our visualization suite by adding a 
+        spatial aggregation perspective: while Vis4 shows individual stellar positions with multi-attribute 
+        encoding (temperature, brightness, position), Vis5 reveals the overall density architecture of stellar 
+        distribution, providing insight into galactic structure visible in our local stellar neighborhood.
+      </p>
     </article>
   </section>
 
@@ -193,30 +223,101 @@
   <section id="interaction">
     <h2>Interaction Design</h2>
     <p>
-      <strong>1. Interactive Tooltips:</strong> Hovering reveals detailed star information 
-      including names, measurements, and classifications. This keeps visualizations uncluttered 
-      while enabling deep exploration.
+      <strong>1. Interactive Tooltips:</strong> Multiple visualizations implement hover-activated tooltips 
+      that reveal detailed star information without cluttering the display. In Visualization 2 (scatter plot), 
+      hovering displays the star's name, B-V color index, and visual magnitude. In Visualization 4 (sky map), 
+      tooltips show comprehensive data including celestial coordinates (RA/Dec), magnitude, B-V color, and 
+      spectral type. This follows the information visualization principle of "overview first, details on demand"—users 
+      can explore the overall pattern initially, then access specific information for individual stars as needed. 
+      The tooltips appear near the cursor and update dynamically as users move across the visualization, maintaining 
+      contextual awareness while providing precise measurements.
     </p>
     <p>
-      <strong>2. Highlight and Focus:</strong> Hovering enlarges and brightens selected stars 
-      while dimming others, creating clear focus in dense regions.
+      <strong>2. Highlight and Focus:</strong> Visualization 4 implements sophisticated focus+context interaction 
+      where hovering over a star enlarges it to 1.8× its normal size, increases opacity to full brightness, and 
+      adds a golden stroke, while simultaneously keeping surrounding stars visible for spatial context. This technique 
+      enables users to identify and examine individual stars even in the densest regions of the sky map where hundreds 
+      of points overlap. The enlargement is proportional and smooth, providing clear visual feedback about which 
+      element is currently selected without disorienting the user or losing the overall spatial structure.
     </p>
     <p>
-      <strong>3. Interactive Filtering:</strong> Clicking legend items filters displays to 
-      specific categories, enabling comparative analysis of stellar populations.
+      <strong>3. Interactive Filtering (Sky Map - Visualization 4):</strong> The celestial sky map features 
+      comprehensive filtering capabilities that address the challenge of identifying trends in dense stellar 
+      distributions. Users can click filter options in the right-side legend to isolate stellar subpopulations 
+      by Temperature (Hot: B-V < 0.5, Medium: 0.5-1.2, Cool: B-V > 1.2) or Brightness (Bright: magnitude < 2, 
+      Medium: 2-4, Dim: > 4). When a filter is activated, stars matching the criterion remain at 80% opacity 
+      while non-matching stars dim to 10%, creating clear visual separation without completely removing context. 
+      The selected filter option in the legend highlights to indicate active state, providing immediate feedback. 
+      This filtering enables systematic exploration of spatial patterns—users can ask questions like "Where do 
+      hot blue stars cluster?" or "How do the brightest stars distribute across the sky?" and immediately see 
+      the answer through the filtered view. Multiple filters can be applied sequentially, and clicking "All" 
+      resets to the unfiltered state. This interaction directly supports analytical tasks by making subpopulation 
+      patterns visible that would be impossible to discern in the dense unfiltered display of 3,100 overlapping points.
     </p>
+    <p>
+      <strong>4. Legend-Based Category Selection (Visualization 1):</strong> The spectral type bar chart 
+      includes an interactive legend where clicking on spectral classes (O, B, A, F, G, K, M) highlights or 
+      isolates those categories in the visualization. This enables comparative analysis—users can focus on 
+      specific stellar types to understand their frequency relative to others, or click multiple types to 
+      compare subgroups. The legend items provide visual feedback on hover and selection state, making the 
+      interaction mechanism clear and intuitive even for users unfamiliar with the dataset.
+    </p>
+    <p>
+      <strong>5. Trend Line Visualization:</strong> Visualization 4 (sky map) incorporates a cyan dashed linear 
+      regression trend line showing the overall distribution pattern of stars across Right Ascension and Declination. 
+      This statistical overlay helps users identify whether stars cluster along certain celestial coordinates—potentially 
+      indicating the galactic plane—or show more uniform distribution. The trend line remains visible during filtering 
+      operations, providing a consistent reference frame for comparing filtered subpopulations against the overall pattern. 
+      The dashed style distinguishes it from data elements while maintaining visibility.
+    </p>
+    <p>
+      <strong>6. Non-Interactive Density Aggregation (Visualization 5):</strong> The stellar density contour map 
+      intentionally lacks interactive controls, instead presenting an immediate, comprehensive view of concentration 
+      patterns across the celestial sphere. This design choice ensures all users instantly perceive the density structure 
+      without requiring active exploration. The smooth contour lines and color gradient (pale yellow to deep red) provide 
+      pre-attentive visual processing—users can identify high-density regions within milliseconds of viewing. This complements 
+      the interactive Visualization 4 by offering a different analytical mode: Vis4 enables detailed individual exploration, 
+      while Vis5 provides instant big-picture density understanding. The static presentation also ensures consistent 
+      interpretation across all viewers, making it ideal for presentations and reports where interaction isn't possible.
   </section>
 
   <!-- Summary Section-->
   <section id="summary">
     <h2>Summary and Future Work</h2>
     <p>
-      Our visualizations reveal that cooler spectral types dominate, the HR diagram confirms 
-      expected temperature-luminosity relationships, and many bright stars are extremely 
-      distant yet intrinsically luminous. Future work could include 3D spatial plots, temporal 
-      animations of stellar motion, integration with Gaia DR3 for precise distances, and 
-      constellation mapping.
+      Our visualizations reveal that cooler spectral types (F, G, K) dominate the catalog, with 
+      intermediate temperatures (B-V ≈ 0.62) and brightness (magnitude ≈ 5.06) being most common. 
+      The celestial sky map with interactive filtering demonstrates non-uniform spatial distribution, 
+      with different stellar types clustering in different sky regions. The density contour map (Vis5) 
+      reveals distinct high-concentration zones at specific Right Ascension ranges (particularly RA 
+      60-90° and 270-300°), likely corresponding to our view through the Milky Way's galactic plane 
+      and spiral arm structures. These density patterns show that stellar distribution is highly 
+      non-uniform across the celestial sphere, reflecting the three-dimensional structure of our galaxy 
+      as projected onto the two-dimensional sky. Together, our five complementary visualizations provide 
+      comprehensive analysis from categorical (Vis1), relational (Vis2), distributional (Vis3), 
+      individual spatial (Vis4), and aggregated density (Vis5) perspectives.
     </p>
+    <p>
+      Future work could include 3D spatial plots incorporating proper motion vectors, temporal animations 
+      of stellar motion, integration with Gaia DR3 for precise parallaxes and radial velocities, correction 
+      for observational selection effects to estimate true local stellar population demographics, and 
+      constellation mapping to connect abstract coordinates with familiar sky patterns.
+    </p>
+    <p>
+      <strong>Methodological Insights:</strong> This project demonstrates the importance of using multiple 
+      visualization techniques to fully understand complex datasets. Each visualization type—bar charts for 
+      categorical comparison, scatter plots for relationship analysis, density plots for frequency patterns, 
+      point maps for individual spatial analysis, and contour maps for aggregated density—reveals different 
+      aspects that would be invisible in any single view. The interactive filtering in Visualization 4 proved 
+      essential for identifying subpopulation patterns in dense data, directly addressing the professor's feedback 
+      about making trends visible. The combination of interactive exploration (Vis1, Vis2, Vis4) and static 
+      presentation (Vis3, Vis5) serves different analytical needs—interaction enables hypothesis testing and 
+      detailed investigation, while static views ensure all users immediately perceive key patterns. The careful 
+      choice of visual encodings—position for spatial accuracy, color for categorical differentiation and temperature 
+      gradients, size for magnitude, and contour intensity for density—demonstrates alignment between data attributes, 
+      perceptual effectiveness, and analytical tasks. This multi-faceted approach transforms raw astronomical 
+      measurements into accessible, interpretable insights about the structure and characteristics of bright stars 
+      in our galactic neighborhood.
   </section>
 
   <!-- References Section-->
